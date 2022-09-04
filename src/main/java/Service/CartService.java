@@ -1,31 +1,35 @@
 package Service;
 
 import DAO.CartRepository;
+import DAO.MenuRepository;
 import Model.Cart;
+
 
 import java.util.List;
 
 public class CartService {
     CartRepository cr;
-    MenuService ms;
     public CartService(){
         cr = new CartRepository();
-        ms = new MenuService();
     }
-
+//    public List<Cart> joinCartIDAndProductID(){
+//        return cr.joinCartIdAndProductId();
+//    }
     public List<Cart> getAllFoodItemsFromCart(){
-        return cr.getAllFoodItemsFromCart();
+            return cr.viewItemIfExists();
     }
-    public void addItems(int cartID, String foodItem){
-        Cart existingItems = cr.getFoodItemByName(foodItem); // if I haven't added the same item
-        //List<Menu> idExists = cr.getAllFoodItemsByProductID(num);
-        if(existingItems == null) {   //&& idExists != null
-            Cart newItem = new Cart(cartID, foodItem);
+    public List<Cart> getTotalPrice(){
+        return cr.getTotalPrice();
+    }
+    public void addItems(int cartID, double foodPrice, String foodItem){
+            Cart newItem = new Cart(cartID, foodPrice, foodItem);
             cr.addItems(newItem);
-        }
-
     }
-    public void removeItems(int cartID, String itemName, int itemPrice){
+    public void removeItems(int cartID){
+        //List<Cart> existingItems = cr.viewItemIfExists();
+        // if the items exists in the cart, then remove
+            Cart removeItem = new Cart(cartID);
+            cr.removeItems(removeItem);
 
     }
 }

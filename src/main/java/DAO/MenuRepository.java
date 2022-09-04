@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.Menu;
+import Model.Price;
 import Util.ConnectionsUtil;
 
 import java.sql.*;
@@ -19,8 +20,7 @@ public class MenuRepository {
             ResultSet rs = menuStatement.executeQuery("Select * From Menu");
             while(rs.next()){
                 Menu displayFood = new Menu(rs.getInt("product_id"), rs.getString("product_name"),
-                        rs.getString("product_category"), rs.getInt("menu_id"),
-                        rs.getInt("product_price"));
+                        rs.getString("product_category"), rs.getDouble("product_price"));
                 theMenu.add(displayFood);
             }
         }catch(SQLException se){
@@ -29,20 +29,15 @@ public class MenuRepository {
         return theMenu;
     }
 
-    public List<Menu> getAllFoodPricesByName(String foodName){
-        List<Menu> foodItems = new ArrayList<>();
+    public void updateMenu(Menu item){
         try{
-            PreparedStatement stmt = c.prepareStatement("Select * From Menu where product_name = ?");
-            stmt.setString(1, foodName);
-            ResultSet rs = stmt.executeQuery();
-            while(rs.next()){
-                Menu m = new Menu(rs.getString("product_name"), rs.getInt("product_price"));
-                foodItems.add(m);
-            }
+            PreparedStatement stmt = c.prepareStatement("Update Menu Set product_name = 'Chana Masala', " +
+                    "product_category = 'Savory', product_price = 12.00 Where product_id = ?");
+            stmt.setInt(1, item.getProductID());
+            stmt.executeUpdate();
         }catch(SQLException se){
             se.printStackTrace();
         }
-        return foodItems;
     }
 }
 

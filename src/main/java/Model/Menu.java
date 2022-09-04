@@ -6,29 +6,18 @@ public class Menu {
     private int productID;
     private String productName;
     private String productCategory;
-    private int menuID;
-    private int productPrice;
+    private double productPrice;
 
-    public Menu(String productName) {
-        this.productName = productName;
-    }
 
-    public Menu(int productID, String productName, int productPrice) {
+    public Menu(int productID) {
         this.productID = productID;
-        this.productName = productName;
-        this.productPrice = productPrice;
     }
 
-    public Menu(String productName, int productPrice) {
-        this.productName = productName;
-        this.productPrice = productPrice;
-    }
 
-    public Menu(int productID, String productName, String productCategory, int menuID, int productPrice) {
+    public Menu(int productID, String productName, String productCategory, double productPrice) {
         this.productID = productID;
         this.productName = productName;
         this.productCategory = productCategory;
-        this.menuID = menuID;
         this.productPrice = productPrice;
     }
 
@@ -57,15 +46,8 @@ public class Menu {
         this.productCategory = productCategory;
     }
 
-    public int getMenuID() {
-        return menuID;
-    }
 
-    public void setMenuID(int menuID) {
-        this.menuID = menuID;
-    }
-
-    public int getProductPrice() {
+    public double getProductPrice() {
         return productPrice;
     }
 
@@ -77,7 +59,7 @@ public class Menu {
     public String toString() {
         DecimalFormat prettyFormat = new DecimalFormat("#.00");
         return "Our Food Menu {" + "Product ID: " + productID + "  Product Name: " + productName + "  Category: "
-                + productCategory + "  Menu ID: " + menuID + "  Price: $" + prettyFormat.format(productPrice)
+                + productCategory + "  Price: $" + prettyFormat.format(productPrice)
                 + '\'' + "}" + "\n";
     }
 }

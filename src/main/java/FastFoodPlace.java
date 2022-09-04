@@ -10,7 +10,10 @@ public class FastFoodPlace {
         MenuService ms = new MenuService();
         CartService cs = new CartService();
         while(insideFastFoodMachine) {
-            System.out.println("Select an option, please: view food menu / view prices /  advanced options / quit: ");
+            System.out.println("Select an option, please:" + "\n" +
+                    "-------------------------------------------------------------------------"+ "\n" +
+                    "view food menu | advanced options | administrative options | quit: "+ "\n" +
+                    "-------------------------------------------------------------------------");
             Scanner customerInput = new Scanner(System.in);
             String readLine = customerInput.nextLine();
             if(readLine.equals("quit")){
@@ -20,36 +23,43 @@ public class FastFoodPlace {
                 insideFastFoodMachine = false;
                 insideMenu = true;
             } else if (readLine.equals("view food menu")) {
-                // display the menu(done), group by price in the Menu entity [**Add a product_price column in Menu table**]
                 System.out.println(ms.getAllFoodItems());
                 insideMenu = true;
-            }else if(readLine.equals("view prices")){
-                System.out.println("Please add a product name from our Menu: ");
-                String input = customerInput.nextLine();
-                System.out.println(ms.getAllFoodPricesByName(input));
+            }else if(readLine.equals("administrative options")){
+                System.out.println("Please type a Product ID: ");
+                int input = customerInput.nextInt();
+                ms.updateAProduct(input);
             }
         }
         while(insideMenu) {
-            System.out.println("Select an option, please: add a food / update my cart / view my cart / finish: ");
+            System.out.println("Select an option: please:" + "\n" +
+                    "---------------------------------------------------------------------------------"+ "\n" +
+                    "add a food item | remove a food item | view my cart | view total price | finish: "+ "\n" +
+                    "---------------------------------------------------------------------------------");
             Scanner customerInput = new Scanner(System.in);
             String line = customerInput.nextLine();
             if (line.equals("finish")) {
                 insideMenu = false;
             }
-            else if (line.equals("add a food")) {
+            else if (line.equals("add a food item")) {
                 // add a food item in the Cart class
-                System.out.println("Please add an ID associated with item from our Menu: ");
+                System.out.println("Please type an ID associated with the item from our Menu: ");
                 int idInput = customerInput.nextInt();
+                System.out.println("Please type the price from our Menu: ");
+                double priceInput = customerInput.nextDouble();
+                System.out.println("Please type a food item from our Menu: ");
                 String foodInput = customerInput.nextLine();
-                System.out.println("Please add a food item from our Menu: ");
-                cs.addItems(idInput, foodInput);
-            } else if (line.equals("update my cart")) {
-                // update an item and/or delete an item in the Cart Class [UPDATE, DELETE sql functions]
+                cs.addItems(idInput, priceInput, foodInput);
+            } else if (line.equals("remove a food item")) {
+                System.out.println("Please type an ID associated with the item you want to remove: ");
+                int idInput = customerInput.nextInt();
+                cs.removeItems(idInput);
+                // not working; may need to add "food name" and "food price"
             } else if (line.equals("view my cart")) {
-                // display the newly created cart (maybe in a new Customer entity?) --> Did it in the Cart entity
                 System.out.println(cs.getAllFoodItemsFromCart());
-                // having issues viewing my cart
-                // I am unable to view the added items.
+                // unable to view the food names of the added items.
+            }else if(line.equals("view total price")){
+                System.out.println(cs.getTotalPrice()); // shows "item_price" column does not exist
             }
         }
 

@@ -5,18 +5,19 @@ import java.text.DecimalFormat;
 public class Cart {
     private int cartID;
     private String foodName;
-    private int foodPrice;
+    private double foodPrice;
 
-    public Cart(String foodName) {
-        this.foodName = foodName;
+    public Cart(double foodPrice) {
+        this.foodPrice = foodPrice;
     }
 
-    public Cart(int cartID, String foodName) {
+    public Cart(int cartID, double foodPrice, String foodName) {
         this.cartID = cartID;
         this.foodName = foodName;
+        this.foodPrice = foodPrice;
     }
 
-    public Cart(int cartID, String foodName, int foodPrice) {
+    public Cart(int cartID,  String foodName, double foodPrice) {
         this.cartID = cartID;
         this.foodName = foodName;
         this.foodPrice = foodPrice;
@@ -29,7 +30,7 @@ public class Cart {
         this.cartID = cartID;
     }
 
-    public int getFoodPrice() {
+    public double getFoodPrice() {
         return foodPrice;
     }
 

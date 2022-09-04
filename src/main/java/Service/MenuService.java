@@ -2,6 +2,7 @@ package Service;
 
 import DAO.MenuRepository;
 import Model.Menu;
+import Model.Price;
 
 import java.util.List;
 
@@ -15,7 +16,8 @@ public class MenuService {
         return mr.getAllFoodItems();
     }
 
-    public List<Menu> getAllFoodPricesByName(String name){
-        return mr.getAllFoodPricesByName(name);
+    public void updateAProduct(int id){
+        Menu updatedRow = new Menu(id);
+        mr.updateMenu(updatedRow);
     }
 }
