@@ -58,8 +58,8 @@ public class Menu {
     @Override
     public String toString() {
         DecimalFormat prettyFormat = new DecimalFormat("#.00");
-        return "Our Food Menu {" + "Product ID: " + productID + "  Product Name: " + productName + "  Category: "
-                + productCategory + "  Price: $" + prettyFormat.format(productPrice)
-                + '\'' + "}" + "\n";
+        return "Our Food Menu: " + "Product ID: " + productID + ", Product Name: " + productName + ", Category: "
+                + productCategory + ", Price: $" + prettyFormat.format(productPrice)
+                + "\n";
     }
 }

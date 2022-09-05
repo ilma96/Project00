@@ -3,6 +3,7 @@ package Service;
 import DAO.CartRepository;
 import DAO.MenuRepository;
 import Model.Cart;
+import Model.Price;
 
 
 import java.util.List;
@@ -18,11 +19,11 @@ public class CartService {
     public List<Cart> getAllFoodItemsFromCart(){
             return cr.viewItemIfExists();
     }
-    public List<Cart> getTotalPrice(){
+    public List<Price> getTotalPrice(){
         return cr.getTotalPrice();
     }
-    public void addItems(int cartID, double foodPrice, String foodItem){
-            Cart newItem = new Cart(cartID, foodPrice, foodItem);
+    public void addItems(int cartID, String foodItem, double foodPrice){
+            Cart newItem = new Cart(cartID, foodItem, foodPrice);
             cr.addItems(newItem);
     }
     public void removeItems(int cartID){

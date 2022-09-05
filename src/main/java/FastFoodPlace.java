@@ -45,21 +45,21 @@ public class FastFoodPlace {
                 // add a food item in the Cart class
                 System.out.println("Please type an ID associated with the item from our Menu: ");
                 int idInput = customerInput.nextInt();
-                System.out.println("Please type the price from our Menu: ");
-                double priceInput = customerInput.nextDouble();
+                customerInput.nextLine();
                 System.out.println("Please type a food item from our Menu: ");
                 String foodInput = customerInput.nextLine();
-                cs.addItems(idInput, priceInput, foodInput);
+                customerInput.nextLine();
+                System.out.println("Please type the price from our Menu: ");
+                double priceInput = customerInput.nextDouble();
+                cs.addItems(idInput, foodInput, priceInput);
             } else if (line.equals("remove a food item")) {
                 System.out.println("Please type an ID associated with the item you want to remove: ");
                 int idInput = customerInput.nextInt();
                 cs.removeItems(idInput);
-                // not working; may need to add "food name" and "food price"
             } else if (line.equals("view my cart")) {
                 System.out.println(cs.getAllFoodItemsFromCart());
-                // unable to view the food names of the added items.
             }else if(line.equals("view total price")){
-                System.out.println(cs.getTotalPrice()); // shows "item_price" column does not exist
+                System.out.println(cs.getTotalPrice());
             }
         }
 

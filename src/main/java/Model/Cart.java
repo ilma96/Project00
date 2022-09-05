@@ -10,14 +10,10 @@ public class Cart {
     public Cart(double foodPrice) {
         this.foodPrice = foodPrice;
     }
-
-    public Cart(int cartID, double foodPrice, String foodName) {
+    public Cart(int cartID){
         this.cartID = cartID;
-        this.foodName = foodName;
-        this.foodPrice = foodPrice;
     }
-
-    public Cart(int cartID,  String foodName, double foodPrice) {
+    public Cart(int cartID, String foodName, double foodPrice) {
         this.cartID = cartID;
         this.foodName = foodName;
         this.foodPrice = foodPrice;
@@ -51,8 +47,9 @@ public class Cart {
         DecimalFormat prettyFormat = new DecimalFormat("#.00");
         return "Your Food Cart {" +
                 "Cart ID: " + cartID +
-                ", Food Name: " + foodName + "  Price: $" + prettyFormat.format(foodPrice)
-                + '\'' +
+                ", Food Name: " + foodName +
+                 ", Price: $" + prettyFormat.format(foodPrice)
+                +  '\'' +
                 "}" + "\n";
     }
 }

@@ -4,11 +4,9 @@ import java.text.DecimalFormat;
 
 public class Price {
     private double foodPrice;
-    private String foodName;
 
-    public Price(double foodPrice, String foodName) {
+    public Price(double foodPrice) {
         this.foodPrice = foodPrice;
-        this.foodName = foodName;
     }
 
     public double getFoodPrice() {
@@ -19,19 +17,11 @@ public class Price {
         this.foodPrice = foodPrice;
     }
 
-    public String getFoodName() {
-        return foodName;
-    }
-
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
-    }
 
     @Override
     public String toString() {
         DecimalFormat prettyFormat = new DecimalFormat("#.00");
-        return "The Price for the selected food item: " +
-                " $" + prettyFormat.format(foodPrice) +
-                " (" + foodName + ")";
+        return "The Total Price: " +
+                " $" + prettyFormat.format(foodPrice);
     }
 }

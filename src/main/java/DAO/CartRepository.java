@@ -2,6 +2,7 @@ package DAO;
 
 import Model.Cart;
 import Model.Menu;
+import Model.Price;
 import Util.ConnectionsUtil;
 
 import java.sql.*;
@@ -13,10 +14,11 @@ public class CartRepository {
 
     public void addItems(Cart item){
         try{
-            PreparedStatement stmt = c.prepareStatement("insert into Cart(cart_id, item_price, food_name)" + "values (?,?,?)");
+            PreparedStatement stmt = c.prepareStatement("insert into Cart(cart_id, food_name, item_price)"
+                    + "values (?,?,?)");
             stmt.setInt(1, item.getCartID());
-            stmt.setDouble(2, item.getFoodPrice());
-            stmt.setString(3, item.getFoodName());
+            stmt.setString(2, item.getFoodName());
+            stmt.setDouble(3, item.getFoodPrice());
             stmt.executeUpdate();
         }catch(SQLException se){
             se.printStackTrace();
@@ -35,11 +37,12 @@ public class CartRepository {
         List<Cart> itemExists = new ArrayList<>();
         try{
             Statement cartStatement = c.createStatement();
-            ResultSet rs = cartStatement.executeQuery("Select cart_id, food_name, item_price From Cart c\n" +
-                    "Where exists (Select product_name From Menu m Where m.product_id = c.cart_id)");
+            ResultSet rs = cartStatement.executeQuery("Select * From Cart c\n" +
+                    "Where exists (Select product_name, product_price From Menu m Where m.product_id = c.cart_id and m.product_price = c.item_price)");
             // SQL statement to check if an item added in Cart exists in the Menu or not
             while(rs.next()) {
-                Cart displayFood = new Cart(rs.getInt("cart_id"), rs.getString("food_name"), rs.getDouble("item_price"));
+                Cart displayFood = new Cart(rs.getInt("cart_id"), rs.getString("food_name"),
+                        rs.getDouble("item_price"));
                 itemExists.add(displayFood);
             }
         }catch(SQLException se){
@@ -48,13 +51,13 @@ public class CartRepository {
         return itemExists;
     }
 
-    public List<Cart> getTotalPrice(){
-        List<Cart> totalPrice = new ArrayList<>();
+    public List<Price> getTotalPrice(){
+        List<Price> totalPrice = new ArrayList<>();
         try{
             Statement cartStatement = c.createStatement();
-            ResultSet rs = cartStatement.executeQuery("Select SUM(item_price) from Cart");
+            ResultSet rs = cartStatement.executeQuery("Select sum(item_price) as item_price from Cart");
             while(rs.next()){
-                Cart displayPrice = new Cart(rs.getDouble("item_price"));
+                Price displayPrice = new Price(rs.getDouble("item_price"));
                 totalPrice.add(displayPrice);
             }
         }catch(SQLException se){
