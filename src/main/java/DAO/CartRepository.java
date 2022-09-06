@@ -38,7 +38,8 @@ public class CartRepository {
         try{
             Statement cartStatement = c.createStatement();
             ResultSet rs = cartStatement.executeQuery("Select * From Cart c\n" +
-                    "Where exists (Select product_name, product_price From Menu m Where m.product_id = c.cart_id and m.product_price = c.item_price)");
+                    "Where exists (Select product_name, product_price " +
+                    "From Menu m Where m.product_id = c.cart_id and m.product_price = c.item_price)");
             // SQL statement to check if an item added in Cart exists in the Menu or not
             while(rs.next()) {
                 Cart displayFood = new Cart(rs.getInt("cart_id"), rs.getString("food_name"),
@@ -55,7 +56,9 @@ public class CartRepository {
         List<Price> totalPrice = new ArrayList<>();
         try{
             Statement cartStatement = c.createStatement();
-            ResultSet rs = cartStatement.executeQuery("Select sum(item_price) as item_price from Cart");
+            ResultSet rs = cartStatement.executeQuery("Select sum(item_price) as item_price " +
+                    "from Cart Where exists (Select product_price " +
+                    "From Menu m Where m.product_id = Cart.cart_id and m.product_price = Cart.item_price)");
             while(rs.next()){
                 Price displayPrice = new Price(rs.getDouble("item_price"));
                 totalPrice.add(displayPrice);

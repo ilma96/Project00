@@ -1,6 +1,7 @@
 import Service.CartService;
 import Service.MenuService;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class FastFoodPlace {
@@ -26,9 +27,18 @@ public class FastFoodPlace {
                 System.out.println(ms.getAllFoodItems());
                 insideMenu = true;
             }else if(readLine.equals("administrative options")){
-                System.out.println("Please type a Product ID: ");
-                int input = customerInput.nextInt();
-                ms.updateAProduct(input);
+                System.out.println("Please enter username: ");
+                String username = customerInput.nextLine();
+                System.out.println("Please enter password: ");
+                String password = customerInput.nextLine();
+                //customerInput.nextLine();
+                if(Objects.equals(username, "sa") && Objects.equals(password, "p@ssword123")) {
+                    System.out.println("Please type a Product ID: ");
+                    int input = customerInput.nextInt();
+                    ms.updateAProduct(input);
+                }else{
+                    System.out.println("Wrong username or password!");
+                }
             }
         }
         while(insideMenu) {
